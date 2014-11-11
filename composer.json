@@ -1,0 +1,25 @@
+{
+    "name": "laravel-commode/localization",
+    "description": "",
+    "authors": [
+        {
+            "name": "Andrey Volynov",
+            "email": "dubpubz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "laravel-commode/common": "dev-master"
+    },
+    "repositories": [{
+        "type": "vcs",
+        "url" : "/home/madman/Projects/commode/laravel-commode-common"
+    }],
+    "autoload": {
+        "psr-0": {
+            "LaravelCommode\\Localization": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
