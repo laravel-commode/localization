@@ -17,9 +17,9 @@
             return ['commode.localization.registry', Interfaces\ILangRegistry::class];
         }
 
-        public function launching() { }
+        protected function launching() { }
 
-        public function registering()
+        protected function registering()
         {
             $this->app->singleton(Interfaces\ILangRegistry::class, LangRegistry\LangRegistry::class);
 
