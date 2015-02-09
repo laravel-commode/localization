@@ -1,5 +1,6 @@
 <?php
     namespace LaravelCommode\Localization\XMLReader;
+    use Illuminate\Filesystem\Filesystem;
     use LaravelCommode\Localization\Interfaces\ICatContainer;
     use LaravelCommode\Localization\Interfaces\ISourceContainer;
     use LaravelCommode\Localization\Interfaces\IWriter;
@@ -24,10 +25,16 @@
          */
         private $path;
 
+        /**
+         * @var Filesystem
+         */
+        private $fileSystem;
+
         public function __construct(Structured $structured = null, $path = '')
         {
             $this->structured = $structured;
             $this->path = $path;
+            $this->fileSystem = new Filesystem();
         }
 
         /**
@@ -61,9 +68,9 @@
 
             $path = realpath($this->path);
 
-            if (!\File::exists($dirpath = dirname($path)))
+            if (!$this->fileSystem->exists($dirpath = dirname($path)))
             {
-                \File::makeDirectory($dirpath, 777, true);
+                $this->fileSystem->makeDirectory($dirpath, 777, true);
             }
 
             $dom = dom_import_simplexml($this->xml)->ownerDocument;
@@ -76,7 +83,7 @@
                 return $newLine.$spaces.$spaces;
             }, $doc));
 
-            \File::put($path."/default.xml", $doc);
+            $this->fileSystem->put($path."/default.xml", $doc);
         }
 
         private function setData(SimpleXMLElement $xml)

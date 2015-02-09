@@ -17,16 +17,16 @@
         /**
          * @var \LaravelCommode\Localization\Interfaces\IReader|null
          */
-        private $reader = null;
+        private $reader;
         /**
          * @var \LaravelCommode\Localization\Interfaces\IWriter|null
          */
-        private $writer = null;
+        private $writer;
 
         /**
          * @var Structured
          */
-        private $structured = null;
+        private $structured;
 
         public function __construct(IReader $reader, IWriter $writer)
         {
@@ -39,7 +39,7 @@
          */
         public function extractStructure()
         {
-            if (is_null($this->structured))
+            if ($this->structured === null)
             {
                 $this->structured = $this->reader->read();
             }

@@ -3,6 +3,7 @@
 
 
 
+    use Illuminate\Filesystem\Filesystem;
     use LaravelCommode\Localization\Interfaces\ICatContainer;
     use LaravelCommode\Localization\Interfaces\IReader;
     use LaravelCommode\Localization\Interfaces\ISourceContainer;
@@ -27,11 +28,17 @@
         private $langs = [];
 
         /**
+         * @var Filesystem
+         */
+        private $filesystem;
+
+        /**
          * @param $filePath
          */
         public function __construct($filePath)
         {
             $this->filePath = realpath($filePath);
+            $this->filesystem = new Filesystem();
         }
 
         private function validateLangs(SimpleXMLElement $xml)
@@ -70,7 +77,7 @@
 
         protected function readFile($fileName)
         {
-            $this->xml = new SimpleXMLElement(File::get($fileName));
+            $this->xml = new SimpleXMLElement($this->fileSystem->get($fileName));
 
 
             $this->validateLangs($this->xml);
@@ -93,7 +100,7 @@
             $this->structured = new Structured();
 
 
-            if (File::isDirectory($this->filePath)) {
+            if ($this->filesystem->isDirectory($this->filePath)) {
                 $this->readFolder($this->filePath);
             } else {
                 $this->readFile($this->filePath);

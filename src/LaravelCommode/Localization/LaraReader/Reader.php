@@ -1,6 +1,7 @@
 <?php
     namespace LaravelCommode\Localization\LaraReader;
 
+    use Illuminate\Filesystem\Filesystem;
     use LaravelCommode\Localization\Interfaces\ICatContainer;
     use LaravelCommode\Localization\Interfaces\IReader;
     use LaravelCommode\Localization\Interfaces\ISourceContainer;
@@ -23,9 +24,15 @@
          */
         private $structured;
 
-        public function __construct($file = null)
+        /**
+         * @var Filesystem
+         */
+        private $fileSystem;
+
+        public function __construct($file = null, $langPath = null)
         {
-            $this->baseFolder = app_path('lang');
+            $this->baseFolder = $langPath ?: app_path('lang');
+            $this->fileSystem = new Filesystem();
         }
 
         public function validate()
@@ -63,7 +70,7 @@
                 $fileName = basename($item);
                 $newPath = trim($path.'/'.basename($item), '/');
 
-                if (\File::isDirectory($item)) {
+                if ($this->fileSystem->isDirectory($item)) {
 
                     if ($catContainer->hasCat($fileName)) {
                         $langCat = $catContainer->getCat($fileName);

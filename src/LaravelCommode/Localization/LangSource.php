@@ -38,7 +38,7 @@
             }
 
             $this->parent = $parent;
-            $this->isSubSource = is_null($parent);
+            $this->isSubSource = !is_null($parent);
         }
 
         public function isInherited()
@@ -183,7 +183,6 @@
          * @param $lang
          * @param $key
          * @param $value
-         * @internal param array $strings
          */
         public function setValue($lang, $key, $value)
         {
@@ -195,9 +194,6 @@
 
         /**
          * @param $values
-         * @internal param $lang
-         * @internal param $key
-         * @internal param $value
          */
         public function setValues($values)
         {

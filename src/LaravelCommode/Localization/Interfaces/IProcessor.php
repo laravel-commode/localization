@@ -12,8 +12,6 @@
      */
     interface IProcessor
     {
-        public function __construct(IReader $reader, IWriter $writer);
-
         /**
          * @return IStructured
          */

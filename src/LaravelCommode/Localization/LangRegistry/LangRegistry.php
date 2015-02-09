@@ -25,7 +25,7 @@
 
         public function repositoryExists($name)
         {
-            return isset($this->repositories[$name]) ? $this->repositories[$name] : null;
+            return isset($this->repositories[$name]) ? $this->repositories[$name] : false;
         }
 
         public function getAllRepositories()

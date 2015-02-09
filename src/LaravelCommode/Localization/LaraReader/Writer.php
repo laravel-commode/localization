@@ -1,6 +1,7 @@
 <?php
     namespace LaravelCommode\Localization\LaraReader;
 
+    use Illuminate\Filesystem\Filesystem;
     use LaravelCommode\Localization\Interfaces\IWriter;
     use LaravelCommode\Localization\LangCat;
     use LaravelCommode\Localization\LangSource;
@@ -21,9 +22,15 @@
 
         protected $delayedWrite = [];
 
+        /**
+         * @var Filesystem
+         */
+        private $fileSystem;
+
         public function __construct(Structured $structured = null)
         {
             $this->structured = $structured;
+            $this->fileSystem = new Filesystem();
         }
 
         public function setStructured(Structured $structured)
@@ -99,12 +106,12 @@
                     "\n\t".$this->format_php_export(var_export($resArray, 1)) :
                     "array()";
 
-                if (!\File::exists($dir = dirname($sourcePath))) {
-                    \File::makeDirectory($dir, 511, true, true);
+                if (!$this->fileSystem->exists($dir = dirname($sourcePath))) {
+                    $this->fileSystem->makeDirectory($dir, 511, true, true);
                 }
 
 
-                \File::put($sourcePath, $vr = "<?php return {$export};");
+                $this->fileSystem->put($sourcePath, $vr = "<?php return {$export};");
             }
         }
 
@@ -128,7 +135,7 @@
                 $curPath = trim($path."/".$catName, "/");
                 $langPath = app_path("lang/{$lang}/{$curPath}");
 
-                \File::makeDirectory($langPath, 511, true, true);
+                $this->fileSystem->makeDirectory($langPath, 511, true, true);
 
                 if ($cat->hasCats())
                 {
@@ -178,12 +185,12 @@
                     $sourcePath = app_path('lang/'.$lang."/".$sourcePath);
 
 
-                    if (!\File::exists($dir = dirname($sourcePath))) {
-                        \File::makeDirectory($dir, 511, true, true);
+                    if (!$this->fileSystem->exists($dir = dirname($sourcePath))) {
+                        $this->fileSystem->makeDirectory($dir, 511, true, true);
                     }
 
 
-                    \File::put($sourcePath, $vr = "<?php return {$export};");
+                    $this->fileSystem->put($sourcePath, $vr = "<?php return {$export};");
                 }
 
             }
