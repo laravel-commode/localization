@@ -137,7 +137,7 @@
          */
         public function hasCats()
         {
-            return !empty($this->getCats());
+            return count($this->getCats()) > 0;
         }
 
         /**
