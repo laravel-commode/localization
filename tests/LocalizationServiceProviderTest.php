@@ -57,7 +57,7 @@
                 })
             );
 
-            $app->expects($this->exactly(3))->method('make')->with($registryInterface)->will(
+            $app->expects($this->any())->method('make')->with($registryInterface)->will(
                 $this->returnValue($makeReturn)
             );
 
