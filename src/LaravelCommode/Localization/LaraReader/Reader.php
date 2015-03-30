@@ -29,9 +29,9 @@
          */
         private $fileSystem;
 
-        public function __construct($file = null, $langPath = null)
+        public function __construct($file = null)
         {
-            $this->baseFolder = $langPath ?: app_path('lang');
+            $this->baseFolder = app_path('lang');
             $this->fileSystem = new Filesystem();
         }
 
@@ -59,7 +59,7 @@
             $sourceContainer->addSource($langSource);
         }
 
-        protected function setCats(ICatContainer $catContainer, $lang, $cName = "", $path = "")
+        protected function setCats(ICatContainer $catContainer, $lang, $path = "")
         {
             $cPath = realpath($this->baseFolder."/{$lang}/{$path}");
 
@@ -79,7 +79,7 @@
                         $catContainer->addCat($langCat);
                     }
 
-                    $this->setCats($langCat, $lang, str_replace('/', '.', $newPath), $newPath);
+                    $this->setCats($langCat, $lang, $newPath);
                 }
             }
 

@@ -77,7 +77,7 @@
 
         protected function readFile($fileName)
         {
-            $this->xml = new SimpleXMLElement($this->fileSystem->get($fileName));
+            $this->xml = new SimpleXMLElement($this->filesystem->get($fileName));
 
 
             $this->validateLangs($this->xml);
