@@ -28,13 +28,13 @@
         /**
          * @var Filesystem
          */
-        private $fileSystem;
+        private $filesystem;
 
         public function __construct(Structured $structured = null, $path = '')
         {
             $this->structured = $structured;
             $this->path = $path;
-            $this->fileSystem = new Filesystem();
+            $this->filesystem = new Filesystem();
         }
 
         /**
@@ -68,9 +68,9 @@
 
             $path = realpath($this->path);
 
-            if (!$this->fileSystem->exists($dirpath = dirname($path)))
+            if (!$this->filesystem->exists($dirpath = dirname($path)))
             {
-                $this->fileSystem->makeDirectory($dirpath, 777, true);
+                $this->filesystem->makeDirectory($dirpath, 777, true);
             }
 
             $dom = dom_import_simplexml($this->xml)->ownerDocument;
@@ -83,7 +83,7 @@
                 return $newLine.$spaces.$spaces;
             }, $doc));
 
-            $this->fileSystem->put($path."/default.xml", $doc);
+            $this->filesystem->put($path."/default.xml", $doc);
         }
 
         private function setData(SimpleXMLElement $xml)

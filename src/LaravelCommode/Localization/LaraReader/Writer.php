@@ -25,12 +25,12 @@
         /**
          * @var Filesystem
          */
-        private $fileSystem;
+        private $filesystem;
 
         public function __construct(Structured $structured = null)
         {
             $this->structured = $structured;
-            $this->fileSystem = new Filesystem();
+            $this->filesystem = new Filesystem();
         }
 
         public function setStructured(Structured $structured)
@@ -106,12 +106,12 @@
                     "\n\t".$this->format_php_export(var_export($resArray, 1)) :
                     "array()";
 
-                if (!$this->fileSystem->exists($dir = dirname($sourcePath))) {
-                    $this->fileSystem->makeDirectory($dir, 511, true, true);
+                if (!$this->filesystem->exists($dir = dirname($sourcePath))) {
+                    $this->filesystem->makeDirectory($dir, 511, true, true);
                 }
 
 
-                $this->fileSystem->put($sourcePath, $vr = "<?php return {$export};");
+                $this->filesystem->put($sourcePath, $vr = "<?php return {$export};");
             }
         }
 
@@ -135,7 +135,7 @@
                 $curPath = trim($path."/".$catName, "/");
                 $langPath = app_path("lang/{$lang}/{$curPath}");
 
-                $this->fileSystem->makeDirectory($langPath, 511, true, true);
+                $this->filesystem->makeDirectory($langPath, 511, true, true);
 
                 if ($cat->hasCats())
                 {
@@ -185,12 +185,12 @@
                     $sourcePath = app_path('lang/'.$lang."/".$sourcePath);
 
 
-                    if (!$this->fileSystem->exists($dir = dirname($sourcePath))) {
-                        $this->fileSystem->makeDirectory($dir, 511, true, true);
+                    if (!$this->filesystem->exists($dir = dirname($sourcePath))) {
+                        $this->filesystem->makeDirectory($dir, 511, true, true);
                     }
 
 
-                    $this->fileSystem->put($sourcePath, $vr = "<?php return {$export};");
+                    $this->filesystem->put($sourcePath, $vr = "<?php return {$export};");
                 }
 
             }

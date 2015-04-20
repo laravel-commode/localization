@@ -27,12 +27,12 @@
         /**
          * @var Filesystem
          */
-        private $fileSystem;
+        private $filesystem;
 
         public function __construct($file = null)
         {
             $this->baseFolder = app_path('lang');
-            $this->fileSystem = new Filesystem();
+            $this->filesystem = new Filesystem();
         }
 
         public function validate()
@@ -70,7 +70,7 @@
                 $fileName = basename($item);
                 $newPath = trim($path.'/'.basename($item), '/');
 
-                if ($this->fileSystem->isDirectory($item)) {
+                if ($this->filesystem->isDirectory($item)) {
 
                     if ($catContainer->hasCat($fileName)) {
                         $langCat = $catContainer->getCat($fileName);
